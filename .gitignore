@@ -1,10 +1,4 @@
 *.class
 *.cache
-
 *.class
-
-*.class
-
-bin/classes/com/example/geoclarking/LoginActivity$UserLoginTask.class
-
-bin/classes/com/example/geoclarking/LoginActivity.class
+.DS_Store
