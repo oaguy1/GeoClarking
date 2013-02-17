@@ -56,6 +56,8 @@ public class LoginActivity extends Activity {
 
 		setContentView(R.layout.activity_login);
 		StackMobAndroid.init(getApplicationContext(), 0, "7cdc946a-5fe0-49a2-a6b6-5f145fa3210b");
+		
+		StackMobUser user = new StackMobUser();
 
 		// Set up the login form.
 		mEmail = getIntent().getStringExtra(EXTRA_EMAIL);
