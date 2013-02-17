@@ -15,6 +15,8 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.stackmob.android.sdk.common.StackMobAndroid;
+
 /**
  * Activity which displays a login screen to the user, offering registration as
  * well.
@@ -53,6 +55,7 @@ public class LoginActivity extends Activity {
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.activity_login);
+		StackMobAndroid.init(getApplicationContext(), 0, "7cdc946a-5fe0-49a2-a6b6-5f145fa3210b");
 
 		// Set up the login form.
 		mEmail = getIntent().getStringExtra(EXTRA_EMAIL);
