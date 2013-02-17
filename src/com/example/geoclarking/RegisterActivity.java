@@ -21,7 +21,7 @@ import com.stackmob.android.sdk.common.StackMobAndroid;
  * Activity which displays a login screen to the user, offering registration as
  * well.
  */
-public class LoginActivity extends Activity {
+public class RegisterActivity extends Activity {
 	/**
 	 * A dummy authentication store containing known user names and passwords.
 	 * TODO: remove after connecting to a real authentication system.
@@ -37,15 +37,17 @@ public class LoginActivity extends Activity {
 	/**
 	 * Keep track of the login task to ensure we can cancel it if requested.
 	 */
-	private UserLoginTask mAuthTask = null;
+	private UserRegisterTask mAuthTask = null;
 
 	// Values for email and password at the time of the login attempt.
 	private String mEmail;
 	private String mPassword;
+	private String mPasswordConfirm;
 
 	// UI references.
 	private EditText mEmailView;
 	private EditText mPasswordView;
+	private EditText mPasswordConfirmView;
 	private View mLoginFormView;
 	private View mLoginStatusView;
 	private TextView mLoginStatusMessageView;
@@ -63,18 +65,7 @@ public class LoginActivity extends Activity {
 		mEmailView.setText(mEmail);
 
 		mPasswordView = (EditText) findViewById(R.id.password);
-		mPasswordView
-				.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-					@Override
-					public boolean onEditorAction(TextView textView, int id,
-							KeyEvent keyEvent) {
-						if (id == R.id.login || id == EditorInfo.IME_NULL) {
-							attemptLogin();
-							return true;
-						}
-						return false;
-					}
-				});
+		mPasswordConfirmView = (EditText) findViewById(R.id.password_confrim);
 
 		mLoginFormView = findViewById(R.id.login_form);
 		mLoginStatusView = findViewById(R.id.login_status);
@@ -109,16 +100,23 @@ public class LoginActivity extends Activity {
 		// Reset errors.
 		mEmailView.setError(null);
 		mPasswordView.setError(null);
+		mPasswordConfirmView.setError(null);
 
 		// Store values at the time of the login attempt.
 		mEmail = mEmailView.getText().toString();
 		mPassword = mPasswordView.getText().toString();
+		mPasswordConfirm = mPasswordConfirmView.getText().toString();
 
 		boolean cancel = false;
 		View focusView = null;
-
+		
+		if(!TextUtils.equals(mPassword, mPasswordConfirm)) {
+			mPasswordView.setError(getString(R.string.error_confirm));
+			focusView = mPasswordView;
+			cancel = true;
+		}
 		// Check for a valid password.
-		if (TextUtils.isEmpty(mPassword)) {
+		else if (TextUtils.isEmpty(mPassword)) {
 			mPasswordView.setError(getString(R.string.error_field_required));
 			focusView = mPasswordView;
 			cancel = true;
@@ -148,7 +146,7 @@ public class LoginActivity extends Activity {
 			// perform the user login attempt.
 			mLoginStatusMessageView.setText(R.string.login_progress_signing_in);
 			showProgress(true);
-			mAuthTask = new UserLoginTask();
+			mAuthTask = new UserRegisterTask();
 			mAuthTask.execute((Void) null);
 		}
 	}
@@ -198,11 +196,10 @@ public class LoginActivity extends Activity {
 	 * Represents an asynchronous login/registration task used to authenticate
 	 * the user.
 	 */
-	public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
+	public class UserRegisterTask extends AsyncTask<Void, Void, Boolean> {
 		@Override
 		protected Boolean doInBackground(Void... params) {
 			// TODO: attempt authentication against a network service.
-
 			try {
 				// Simulate network access.
 				Thread.sleep(2000);

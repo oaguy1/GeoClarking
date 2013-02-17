@@ -1,0 +1,7 @@
+<resources>
+    <string name="prompt_confirm_password">Confirm Password</string>
+    <string name="create_button">Create</string>
+    <string name="error_confirm">Passwords dont match</string>
+    <string name="error_email">Enter a vaid email</string>
+    <string name="error_invalid">Your login credentials have failed you</string>
+</resources>
