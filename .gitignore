@@ -2,3 +2,11 @@
 *.cache
 *.class
 .DS_Store
+.apk
+.dex
+.ap_
+bin/GeoClarking.apk
+
+bin/classes.dex
+
+bin/resources.ap_
